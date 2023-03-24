@@ -5,14 +5,15 @@
 #ifndef ALGORITHM_C_SORT_H
 #define ALGORITHM_C_SORT_H
 
-#include <stddef.h>
+#define MIN_INSERT_LEN 32
 
-typedef int SortElem;
+#include <stddef.h>
+#include <stdint.h>
 
 typedef struct {
     const void *arr;
-    size_t arr_len;
-    size_t arr_elem_len;
+    uint64_t arr_len;
+    uint32_t arr_elem_len;
 
     int (*compare)(const void *, const void *);
 
@@ -27,7 +28,7 @@ void insert_sort(p_sort_struct pss);
 
 void binary_insert_sort(p_sort_struct pss);
 
-void insert_sort_by_step(p_sort_struct pss, int start, int end, int step);
+void insert_sort_by_step(p_sort_struct pss, uint64_t start, uint64_t end, uint32_t step);
 
 void select_sort(p_sort_struct pss);
 
