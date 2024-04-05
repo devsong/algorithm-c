@@ -2,6 +2,7 @@
 // Created by guanzhisong on 2023/3/27.
 //
 
+#include <string.h>
 #include "test_sort.h"
 
 
@@ -9,13 +10,15 @@ int int_cmp(const void *first, const void *second) {
     return (*(int *) (first)) - ((*(int *) second));
 }
 
+void swap(void *vp_first, void *vp_second, size_t size) {
+    char buffer[size];
+    memcpy(buffer, vp_first, size);
+    memcpy(vp_first, vp_second, size);
+    memcpy(vp_second, buffer, size);
+}
+
 void int_swap(const void *first, const void *second) {
-    if (first == second) {
-        return;
-    }
-    int tmp = *((int *) first);
-    *((int *) first) = *((int *) second);
-    *((int *) second) = tmp;
+    swap(first, second, sizeof(int));
 }
 
 void int_set(const void *first, const void *second) {
@@ -54,8 +57,8 @@ void sort_bench_mark(const char *sort_alg, p_sort_struct pss, void(*sort_func)(p
 }
 
 
-void test_sort_benchmark(){
-    int arr[] = {10, 100, 1000, 10000, 100000,1000000};
+void test_sort_benchmark() {
+    int arr[] = {10, 100, 1000, 10000, 100000, 1000000};
 
     sort_struct s;
     s.arr_elem_len = sizeof(int);
